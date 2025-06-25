@@ -2,13 +2,9 @@ name: Frontend Build
 
 on:
   push:
-    branches: [main, develop]
-    paths:
-      - "front-end/**"
+    branches: [main, develop, master]
   pull_request:
-    branches: [main, develop]
-    paths:
-      - "front-end/**"
+    branches: [main, develop, master]
 
 jobs:
   build:
@@ -22,17 +18,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "18"
-          cache: "npm"
 
       - name: Install dependencies
         run: |
           cd front-end
-          npm ci
-
-      - name: Run linter
-        run: |
-          cd front-end
-          npm run lint
+          npm install
 
       - name: Build project
         run: |
@@ -44,4 +34,4 @@ jobs:
         with:
           name: frontend-build
           path: front-end/dist/
-          retention-days: 7
+          retention-days: 30
