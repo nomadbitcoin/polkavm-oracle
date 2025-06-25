@@ -1,0 +1,47 @@
+name: Frontend Build
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - "front-end/**"
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "front-end/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: |
+          cd front-end
+          npm ci
+
+      - name: Run linter
+        run: |
+          cd front-end
+          npm run lint
+
+      - name: Build project
+        run: |
+          cd front-end
+          npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build
+          path: front-end/dist/
+          retention-days: 7
