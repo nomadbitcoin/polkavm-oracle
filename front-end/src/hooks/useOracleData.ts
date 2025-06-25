@@ -6,12 +6,36 @@ import OracleABI from "../Oracle.json";
 // Use the complete ABI from Oracle.json
 const ORACLE_ABI = OracleABI.abi;
 
+// Cache interface
+interface CacheEntry {
+  data: OraclePrice[];
+  timestamp: number;
+  oracleAddress: string;
+}
+
+// In-memory cache
+const cache = new Map<string, CacheEntry>();
+const CACHE_TTL = 30000; // 30 seconds cache TTL
+
 export interface OraclePrice {
   symbol: string;
   price: string;
   lastUpdated: string;
   exists: boolean;
   isActive: boolean;
+}
+
+// Helper function to check if cache is valid
+function isCacheValid(entry: CacheEntry, oracleAddress: string): boolean {
+  const now = Date.now();
+  return (
+    entry.oracleAddress === oracleAddress && now - entry.timestamp < CACHE_TTL
+  );
+}
+
+// Helper function to get cache key
+function getCacheKey(oracleAddress: string, symbols: string[]): string {
+  return `${oracleAddress}-${symbols.join(",")}`;
 }
 
 export function useOracleData(
@@ -32,6 +56,17 @@ export function useOracleData(
             : "Oracle address not available"
         );
         setLoading(false);
+        return;
+      }
+
+      const cacheKey = getCacheKey(oracleAddress, symbols);
+      const cachedEntry = cache.get(cacheKey);
+
+      // Check if we have valid cached data
+      if (cachedEntry && isCacheValid(cachedEntry, oracleAddress)) {
+        setPrices(cachedEntry.data);
+        setLoading(false);
+        setError(null);
         return;
       }
 
@@ -88,6 +123,13 @@ export function useOracleData(
           })
         );
 
+        // Cache the fetched data
+        cache.set(cacheKey, {
+          data: priceData,
+          timestamp: Date.now(),
+          oracleAddress,
+        });
+
         setPrices(priceData);
         setLoading(false);
       } catch (err) {
@@ -99,12 +141,18 @@ export function useOracleData(
     }
 
     fetchOracleData();
-    setLoading(false);
 
-    // Poll every 30 seconds
-    const interval = setInterval(fetchOracleData, 30000);
+    // Poll every 30 seconds (cache TTL)
+    const interval = setInterval(fetchOracleData, CACHE_TTL);
     return () => clearInterval(interval);
   }, [oracleAddress, symbols]);
 
-  return { prices, loading, error };
+  // Function to manually refresh data (clear cache and refetch)
+  const refreshData = () => {
+    const cacheKey = getCacheKey(oracleAddress, symbols);
+    cache.delete(cacheKey);
+    setLoading(true);
+  };
+
+  return { prices, loading, error, refreshData };
 }

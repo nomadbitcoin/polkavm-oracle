@@ -8,8 +8,9 @@ interface OraclePriceDashboardProps {
 export function OraclePriceDashboard({
   oracleAddress,
 }: OraclePriceDashboardProps) {
-  const { prices, loading, error } = useOracleData(oracleAddress);
+  const { prices, loading, error, refreshData } = useOracleData(oracleAddress);
 
+  // Show loading state as default
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
@@ -45,6 +46,25 @@ export function OraclePriceDashboard({
             <div className="mt-2 text-sm text-red-700 dark:text-red-300">
               {error}
             </div>
+            <button
+              onClick={refreshData}
+              className="mt-3 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:text-red-200 dark:bg-red-800 dark:hover:bg-red-700"
+            >
+              <svg
+                className="h-4 w-4 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                />
+              </svg>
+              Retry
+            </button>
           </div>
         </div>
       </div>
@@ -69,6 +89,33 @@ export function OraclePriceDashboard({
 
   return (
     <div className="space-y-6">
+      {/* Header with refresh button */}
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          Oracle Price Dashboard
+        </h1>
+        <button
+          onClick={refreshData}
+          disabled={loading}
+          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <svg
+            className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+            />
+          </svg>
+          {loading ? "Refreshing..." : "Refresh"}
+        </button>
+      </div>
+
       {/* Active Feeds */}
       {activeFeeds.length > 0 && (
         <div>
@@ -97,13 +144,32 @@ export function OraclePriceDashboard({
         </div>
       )}
 
-      {/* No feeds available */}
-      {prices.length === 0 && (
+      {/* No feeds available - only show after successful fetch with no data */}
+      {!loading && prices.length === 0 && (
         <div className="text-center py-8">
-          <div className="text-gray-500 dark:text-gray-400">
+          <div className="text-gray-500 dark:text-gray-400 mb-4">
             No price feeds available. Please check the oracle contract
             configuration.
           </div>
+          <button
+            onClick={refreshData}
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            <svg
+              className="h-4 w-4 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+              />
+            </svg>
+            Refresh
+          </button>
         </div>
       )}
     </div>

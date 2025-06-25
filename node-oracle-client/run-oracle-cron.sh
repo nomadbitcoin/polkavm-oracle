@@ -32,9 +32,9 @@ log_message "Using npm command: $NPM_CMD"
 $NPM_CMD start >> "$LOG_FILE" 2>&1 &
 NPM_PID=$!
 
-# Wait for 3.5 hours (12600 seconds) then kill the process
+# Wait for 10 minutes (600 seconds) then kill the process
 # This ensures it completes before the next 4-hour run
-sleep 12600
+sleep 600
 kill $NPM_PID 2>/dev/null || true
 
 # Wait a bit more to ensure it's killed
@@ -43,7 +43,7 @@ kill -9 $NPM_PID 2>/dev/null || true
 
 # Check if the process is still running
 if kill -0 $NPM_PID 2>/dev/null; then
-    log_message "Oracle client was terminated due to timeout (3.5 hours)"
+    log_message "Oracle client was terminated due to timeout (10 minutes)"
 else
     log_message "Oracle client completed successfully"
 fi
