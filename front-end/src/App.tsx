@@ -6,7 +6,7 @@ import polkadotLogo from "./assets/polkadot-logo.svg";
 
 // Get Oracle contract address from environment variable
 const ORACLE_CONTRACT_ADDRESS =
-  process.env.WESTEND_ORACLE_MODULE || "YOUR_ORACLE_CONTRACT_ADDRESS_HERE";
+  process.env.PASSET_ORACLE_MODULE || "YOUR_ORACLE_CONTRACT_ADDRESS_HERE";
 
 function App() {
   return (
@@ -74,7 +74,7 @@ function App() {
                     <div className="mt-2 text-sm text-yellow-700 dark:text-yellow-300">
                       Please set the{" "}
                       <code className="bg-yellow-100 dark:bg-yellow-800 px-1 rounded">
-                        WESTEND_ORACLE_MODULE
+                        PASSET_ORACLE_MODULE
                       </code>{" "}
                       environment variable with your deployed Oracle contract
                       address.

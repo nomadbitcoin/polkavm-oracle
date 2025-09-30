@@ -26,7 +26,6 @@ contract OracleUpgradeable is Initializable, UUPSUpgradeable, OwnableUpgradeable
 
     function _authorizeUpgrade(address newImplementation) internal override onlyOwner {}
 
-    // CREATE - Create a new price feed
     function createFeed(string memory _symbol, uint256 _price) public onlyOwner {
         require(bytes(_symbol).length > 0, "Symbol cannot be empty");
         require(!isActive[_symbol], "Feed already exists");
@@ -38,19 +37,16 @@ contract OracleUpgradeable is Initializable, UUPSUpgradeable, OwnableUpgradeable
         emit FeedCreated(_symbol, _price);
     }
 
-    // READ - Get price by symbol
     function getPrice(string memory _symbol) public view returns (uint256) {
         require(isActive[_symbol], "Feed does not exist");
         return prices[_symbol];
     }
 
-    // READ - Get last updated timestamp
     function getLastUpdated(string memory _symbol) public view returns (uint256) {
         require(isActive[_symbol], "Feed does not exist");
         return lastUpdated[_symbol];
     }
 
-    // UPDATE - Update price
     function updatePrice(string memory _symbol, uint256 _price) public onlyOwner {
         require(isActive[_symbol], "Feed does not exist");
         
@@ -60,7 +56,6 @@ contract OracleUpgradeable is Initializable, UUPSUpgradeable, OwnableUpgradeable
         emit PriceUpdated(_symbol, _price, block.timestamp);
     }
 
-    // DELETE - Delete a feed
     function deleteFeed(string memory _symbol) public onlyOwner {
         require(isActive[_symbol], "Feed does not exist");
         
@@ -69,12 +64,10 @@ contract OracleUpgradeable is Initializable, UUPSUpgradeable, OwnableUpgradeable
         emit FeedDeleted(_symbol);
     }
 
-    // Check if feed exists
     function feedExists(string memory _symbol) public view returns (bool) {
         return isActive[_symbol];
     }
 
-    // Version function for upgrade testing
     function version() public pure returns (string memory) {
         return "0.1.0";
     }

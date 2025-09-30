@@ -27,8 +27,8 @@ const SYMBOL_MAPPING: { [key: string]: string } = {
 const SYMBOLS = Object.keys(SYMBOL_MAPPING);
 
 // Network configuration
-const WESTEND_RPC_URL = "https://westend-asset-hub-eth-rpc.polkadot.io";
-const ORACLE_ADDRESS = process.env.WESTEND_ORACLE_MODULE;
+const PASSET_RPC_URL = "https://testnet-passet-hub-eth-rpc.polkadot.io";
+const ORACLE_ADDRESS = process.env.PASSET_ORACLE_MODULE;
 
 // CoinGecko API configuration
 const COINGECKO_API_URL = "https://api.coingecko.com/api/v3";
@@ -45,16 +45,16 @@ class OraclePriceUpdater {
   private oracleContract: ethers.Contract;
 
   constructor() {
-    if (!process.env.WESTEND_HUB_PK) {
-      throw new Error("WESTEND_HUB_PK environment variable is required");
+    if (!process.env.PASSET_HUB_PK) {
+      throw new Error("PASSET_HUB_PK environment variable is required");
     }
 
     if (!ORACLE_ADDRESS) {
-      throw new Error("WESTEND_ORACLE_MODULE environment variable is required");
+      throw new Error("PASSET_ORACLE_MODULE environment variable is required");
     }
 
-    this.provider = new ethers.providers.JsonRpcProvider(WESTEND_RPC_URL);
-    this.wallet = new ethers.Wallet(process.env.WESTEND_HUB_PK, this.provider);
+    this.provider = new ethers.providers.JsonRpcProvider(PASSET_RPC_URL);
+    this.wallet = new ethers.Wallet(process.env.PASSET_HUB_PK, this.provider);
     this.oracleContract = new ethers.Contract(
       ORACLE_ADDRESS,
       ORACLE_ABI,
@@ -165,7 +165,7 @@ class OraclePriceUpdater {
   async updateAllPrices(): Promise<void> {
     try {
       console.log("🚀 Starting price feed update...");
-      console.log(`Network: ${WESTEND_RPC_URL}`);
+      console.log(`Network: ${PASSET_RPC_URL}`);
       console.log(`Oracle Address: ${ORACLE_ADDRESS}`);
       console.log(`Wallet Address: ${this.wallet.address}`);
 

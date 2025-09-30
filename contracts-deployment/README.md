@@ -1,13 +1,13 @@
 # Oracle Deployment
 
-Deployment scripts for the upgradeable Oracle smart contract on Westend Asset Hub.
+Deployment scripts for the upgradeable Oracle smart contract on Passet Asset Hub.
 
 ## Deployed Contracts
 
 **Current Deployment:**
 
-- **Proxy Address**: `0xA26313ACf84ff7C6d471BAE69f96A84E3036F9e4`
-- **Implementation Address**: `0x0b74B3D148222081c0F0E071f8140E76eD6bF1F0`
+- **Proxy Address**: `0x4e9c7aCc3C2a408087b83E755f02dE94d1f8b78F`
+- **Implementation Address**: `0x06d701DFe729E67c3841928d5B022A6dcAEE0068`
 
 > **Note**: Always use the proxy address for interactions. The implementation address is only needed for upgrades.
 
@@ -16,19 +16,19 @@ Deployment scripts for the upgradeable Oracle smart contract on Westend Asset Hu
 ### Deploy Oracle
 
 ```bash
-npx hardhat run scripts/deploy-oracle.ts --network westendAssetHub
+npx hardhat run scripts/deploy-oracle.ts --network passetAssetHub
 ```
 
 ### Upgrade Oracle
 
 ```bash
-PROXY_ADDRESS=0xA26313ACf84ff7C6d471BAE69f96A84E3036F9e4 npx hardhat run scripts/upgrade-oracle.ts --network westendAssetHub
+PROXY_ADDRESS=0xA26313ACf84ff7C6d471BAE69f96A84E3036F9e4 npx hardhat run scripts/upgrade-oracle.ts --network passetAssetHub
 ```
 
 ### Test Oracle
 
 ```bash
-npx hardhat run scripts/connect-oracle.ts --network westendAssetHub
+npx hardhat run scripts/connect-oracle.ts --network passetAssetHub
 ```
 
 ## Environment Setup
@@ -36,17 +36,17 @@ npx hardhat run scripts/connect-oracle.ts --network westendAssetHub
 Create `.env` file:
 
 ```env
-WESTEND_HUB_PK=your_private_key_here
-WESTEND_ORACLE_MODULE=0xA26313ACf84ff7C6d471BAE69f96A84E3036F9e4
+PASSET_HUB_PK=your_private_key_here
+PASSET_ORACLE_MODULE=0xA26313ACf84ff7C6d471BAE69f96A84E3036F9e4
 ```
 
 ## Scripts
 
-| Script              | Purpose                       | Usage                                                                                     |
-| ------------------- | ----------------------------- | ----------------------------------------------------------------------------------------- |
-| `deploy-oracle.ts`  | Deploy Oracle with UUPS proxy | `npx hardhat run scripts/deploy-oracle.ts --network westendAssetHub`                      |
-| `upgrade-oracle.ts` | Upgrade Oracle implementation | `PROXY_ADDRESS=0x... npx hardhat run scripts/upgrade-oracle.ts --network westendAssetHub` |
-| `connect-oracle.ts` | Test Oracle functionality     | `npx hardhat run scripts/connect-oracle.ts --network westendAssetHub`                     |
+| Script              | Purpose                       | Usage                                                                                    |
+| ------------------- | ----------------------------- | ---------------------------------------------------------------------------------------- |
+| `deploy-oracle.ts`  | Deploy Oracle with UUPS proxy | `npx hardhat run scripts/deploy-oracle.ts --network passetAssetHub`                      |
+| `upgrade-oracle.ts` | Upgrade Oracle implementation | `PROXY_ADDRESS=0x... npx hardhat run scripts/upgrade-oracle.ts --network passetAssetHub` |
+| `connect-oracle.ts` | Test Oracle functionality     | `npx hardhat run scripts/connect-oracle.ts --network passetAssetHub`                     |
 
 ## Contract Architecture
 
@@ -70,9 +70,9 @@ WESTEND_ORACLE_MODULE=0xA26313ACf84ff7C6d471BAE69f96A84E3036F9e4
 ## Network Configuration
 
 ```typescript
-westendAssetHub: {
+passetAssetHub: {
   polkavm: true,
-  url: "https://westend-asset-hub-eth-rpc.polkadot.io",
-  accounts: [process.env.WESTEND_HUB_PK || ""],
+  url: "https://passet-asset-hub-eth-rpc.polkadot.io",
+  accounts: [process.env.PASSET_HUB_PK || ""],
 }
 ```

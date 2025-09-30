@@ -8,10 +8,10 @@ async function main() {
   console.log("Upgrading with account:", deployer.address);
 
   // Get the addresses from environment
-  const oracleModuleAddress = process.env.WESTEND_ORACLE_MODULE;
+  const oracleModuleAddress = process.env.PASSET_ORACLE_MODULE;
 
   if (!oracleModuleAddress) {
-    throw new Error("WESTEND_ORACLE_MODULE environment variable is required");
+    throw new Error("PASSET_ORACLE_MODULE environment variable is required");
   }
 
   console.log(

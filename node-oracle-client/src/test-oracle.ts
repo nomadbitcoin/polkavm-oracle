@@ -14,21 +14,21 @@ const ORACLE_ABI = [
 ];
 
 // Network configuration
-const WESTEND_RPC_URL = "https://westend-asset-hub-eth-rpc.polkadot.io";
-const ORACLE_ADDRESS = process.env.WESTEND_ORACLE_MODULE;
+const PASSET_RPC_URL = "https://westend-asset-hub-eth-rpc.polkadot.io";
+const ORACLE_ADDRESS = process.env.PASSET_ORACLE_MODULE;
 
 async function testOracleConnection() {
   try {
     console.log("🔍 Testing Oracle Contract Connection...");
-    console.log(`Network: ${WESTEND_RPC_URL}`);
+    console.log(`Network: ${PASSET_RPC_URL}`);
     console.log(`Oracle Address: ${ORACLE_ADDRESS}`);
 
     if (!ORACLE_ADDRESS) {
-      throw new Error("WESTEND_ORACLE_MODULE environment variable is required");
+      throw new Error("PASSET_ORACLE_MODULE environment variable is required");
     }
 
     // Create provider
-    const provider = new ethers.providers.JsonRpcProvider(WESTEND_RPC_URL);
+    const provider = new ethers.providers.JsonRpcProvider(PASSET_RPC_URL);
 
     // Create contract instance (read-only)
     const oracleContract = new ethers.Contract(
@@ -85,8 +85,8 @@ async function testOracleConnection() {
     }
 
     // Test 4: Check wallet balance if private key is provided
-    if (process.env.WESTEND_HUB_PK) {
-      const wallet = new ethers.Wallet(process.env.WESTEND_HUB_PK, provider);
+    if (process.env.PASSET_HUB_PK) {
+      const wallet = new ethers.Wallet(process.env.PASSET_HUB_PK, provider);
       const balance = await provider.getBalance(wallet.address);
       console.log(
         `💰 Wallet balance: ${ethers.utils.formatEther(balance)} WND`

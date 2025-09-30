@@ -21,17 +21,17 @@ class OraclePriceUpdaterTest {
   private oracleContract: ethers.Contract;
 
   constructor() {
-    if (!process.env.WESTEND_HUB_PK) {
-      throw new Error("WESTEND_HUB_PK environment variable is required");
+    if (!process.env.PASSET_HUB_PK) {
+      throw new Error("PASSET_HUB_PK environment variable is required");
     }
 
-    if (!process.env.WESTEND_ORACLE_MODULE) {
-      throw new Error("WESTEND_ORACLE_MODULE environment variable is required");
+    if (!process.env.PASSET_ORACLE_MODULE) {
+      throw new Error("PASSET_ORACLE_MODULE environment variable is required");
     }
 
-    const WESTEND_RPC_URL = "https://westend-asset-hub-eth-rpc.polkadot.io";
-    this.provider = new ethers.providers.JsonRpcProvider(WESTEND_RPC_URL);
-    this.wallet = new ethers.Wallet(process.env.WESTEND_HUB_PK, this.provider);
+    const PASSET_RPC_URL = "https://westend-asset-hub-eth-rpc.polkadot.io";
+    this.provider = new ethers.providers.JsonRpcProvider(PASSET_RPC_URL);
+    this.wallet = new ethers.Wallet(process.env.PASSET_HUB_PK, this.provider);
 
     const ORACLE_ABI = [
       "function updatePrice(string _symbol, uint256 _price) external",
@@ -41,7 +41,7 @@ class OraclePriceUpdaterTest {
     ];
 
     this.oracleContract = new ethers.Contract(
-      process.env.WESTEND_ORACLE_MODULE,
+      process.env.PASSET_ORACLE_MODULE,
       ORACLE_ABI,
       this.wallet
     );

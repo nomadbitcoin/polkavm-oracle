@@ -15,8 +15,8 @@ const ORACLE_ABI = [
 ];
 
 // Network configuration
-const WESTEND_RPC_URL = "https://westend-asset-hub-eth-rpc.polkadot.io";
-const ORACLE_ADDRESS = process.env.WESTEND_ORACLE_MODULE;
+const PASSET_RPC_URL = "https://westend-asset-hub-eth-rpc.polkadot.io";
+const ORACLE_ADDRESS = process.env.PASSET_ORACLE_MODULE;
 
 // CoinGecko API configuration
 const COINGECKO_API_URL = "https://api.coingecko.com/api/v3";
@@ -25,23 +25,23 @@ async function testSingleUpdate() {
   try {
     console.log("🧪 Testing single price feed update...");
 
-    if (!process.env.WESTEND_HUB_PK) {
-      throw new Error("WESTEND_HUB_PK environment variable is required");
+    if (!process.env.PASSET_HUB_PK) {
+      throw new Error("PASSET_HUB_PK environment variable is required");
     }
 
     if (!ORACLE_ADDRESS) {
-      throw new Error("WESTEND_ORACLE_MODULE environment variable is required");
+      throw new Error("PASSET_ORACLE_MODULE environment variable is required");
     }
 
-    const provider = new ethers.providers.JsonRpcProvider(WESTEND_RPC_URL);
-    const wallet = new ethers.Wallet(process.env.WESTEND_HUB_PK, provider);
+    const provider = new ethers.providers.JsonRpcProvider(PASSET_RPC_URL);
+    const wallet = new ethers.Wallet(process.env.PASSET_HUB_PK, provider);
     const oracleContract = new ethers.Contract(
       ORACLE_ADDRESS,
       ORACLE_ABI,
       wallet
     );
 
-    console.log(`Network: ${WESTEND_RPC_URL}`);
+    console.log(`Network: ${PASSET_RPC_URL}`);
     console.log(`Oracle Address: ${ORACLE_ADDRESS}`);
     console.log(`Wallet Address: ${wallet.address}`);
 

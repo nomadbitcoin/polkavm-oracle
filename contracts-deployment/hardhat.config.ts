@@ -15,17 +15,17 @@ const config: HardhatUserConfig = {
     hardhat: {
       polkavm: true,
       forking: {
-        url: "wss://westend-asset-hub-rpc.polkadot.io",
+        url: "wss://testnet-passet-hub-eth-rpc.polkadot.io",
       },
     },
     localNode: {
       polkavm: true,
       url: `http://127.0.0.1:8545`,
     },
-    westendAssetHub: {
+    passetAssetHub: {
       polkavm: true,
-      url: "https://westend-asset-hub-eth-rpc.polkadot.io",
-      accounts: [process.env.WESTEND_HUB_PK || ""],
+      url: "https://testnet-passet-hub-eth-rpc.polkadot.io",
+      accounts: [process.env.PASSET_HUB_PK || ""],
     },
   },
 };

@@ -11,7 +11,7 @@ interface IOracle {
     /**
      * @dev Emitted when a price is updated
      * @param symbol The price feed symbol (e.g., "BTC", "ETH")
-     * @param price The updated price in wei
+     * @param price The updated price with 8 decimal precision
      * @param timestamp The block timestamp when the price was updated
      */
     event PriceUpdated(string indexed symbol, uint256 price, uint256 timestamp);
@@ -19,7 +19,7 @@ interface IOracle {
     /**
      * @dev Emitted when a new price feed is created
      * @param symbol The price feed symbol
-     * @param price The initial price
+     * @param price The initial price with 8 decimal precision
      */
     event FeedCreated(string indexed symbol, uint256 price);
 
@@ -32,12 +32,12 @@ interface IOracle {
     /**
      * @dev Get the current price for a given symbol
      * @param _symbol The price feed symbol (e.g., "BTC", "ETH", "USDC")
-     * @return The current price in wei
+     * @return The current price with 8 decimal precision (1e8 = $1.00)
      * @notice Reverts if the feed doesn't exist
      * 
      * Usage example:
      * uint256 btcPrice = oracle.getPrice("BTC");
-     * // Returns price in wei (e.g., 50000000000000000000 for $50,000)
+     * // Returns price with 8 decimals (e.g., 5000000000 for $50,000)
      */
     function getPrice(string memory _symbol) external view returns (uint256);
 

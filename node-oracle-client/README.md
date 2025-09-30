@@ -41,13 +41,13 @@ Edit `.env` with your configuration:
 
 ```env
 # Westend Network Configuration
-WESTEND_HUB_PK=your_private_key_here
-WESTEND_ORACLE_MODULE=your_oracle_contract_address_here
+PASSET_HUB_PK=your_private_key_here
+PASSET_ORACLE_MODULE=your_oracle_contract_address_here
 ```
 
 ### 3. Deploy Oracle Contract
 
-Make sure your Oracle contract is deployed on the Westend network and update the `WESTEND_ORACLE_MODULE` address in your `.env` file.
+Make sure your Oracle contract is deployed on the Westend network and update the `PASSET_ORACLE_MODULE` address in your `.env` file.
 
 ## Usage
 
@@ -175,12 +175,12 @@ Change the cloud function trigger to run at different intervals:
 
 ### Common Issues
 
-1. **"WESTEND_HUB_PK environment variable is required"**
+1. **"PASSET_HUB_PK environment variable is required"**
 
    - Ensure your `.env` file is properly configured
    - Check that the private key is valid
 
-2. **"WESTEND_ORACLE_MODULE environment variable is required"**
+2. **"PASSET_ORACLE_MODULE environment variable is required"**
 
    - Verify the Oracle contract address is correct
    - Ensure the contract is deployed on Westend network

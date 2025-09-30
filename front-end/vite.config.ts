@@ -10,8 +10,8 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     define: {
-      "process.env.WESTEND_ORACLE_MODULE": JSON.stringify(
-        env.WESTEND_ORACLE_MODULE
+      "process.env.PASSET_ORACLE_MODULE": JSON.stringify(
+        env.PASSET_ORACLE_MODULE
       ),
     },
   };

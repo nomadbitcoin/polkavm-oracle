@@ -6,13 +6,13 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 async function main() {
-  console.log("Connecting to deployed Oracle contract on Westend...");
+  console.log("Connecting to deployed Oracle contract on Passet...");
 
   // Get the Oracle contract address from environment variable
-  const oracleAddress = process.env.WESTEND_ORACLE_MODULE;
+  const oracleAddress = process.env.PASSET_ORACLE_MODULE;
 
   if (!oracleAddress) {
-    throw new Error("WESTEND_ORACLE_MODULE environment variable is not set");
+    throw new Error("PASSET_ORACLE_MODULE environment variable is not set");
   }
 
   console.log(`Oracle contract address: ${oracleAddress}`);
