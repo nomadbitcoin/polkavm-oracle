@@ -21,17 +21,17 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd front
+          cd front-end
           npm install
 
       - name: Build project
         run: |
-          cd front
+          cd front-end
           npm run build
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: front-build
-          path: front/dist/
+          path: front-end/dist/
           retention-days: 30
