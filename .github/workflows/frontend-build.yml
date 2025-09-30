@@ -1,10 +1,13 @@
-name: Frontend Build
+name: Frontend Build and Deploy
 
 on:
   push:
     branches: [main, develop, master]
-  pull_request:
-    branches: [main, develop, master]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build:
@@ -25,13 +28,23 @@ jobs:
           npm install
 
       - name: Build project
+        env:
+          PASSET_ORACLE_MODULE: ${{ vars.PASSET_ORACLE_MODULE }}
         run: |
           cd front-end
           npm run build
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+      - name: Add CNAME file
+        run: echo "polkavm-oracle.w3d.community" > front-end/dist/CNAME
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: front-build
-          path: front-end/dist/
-          retention-days: 30
+          path: ./front-end/dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
