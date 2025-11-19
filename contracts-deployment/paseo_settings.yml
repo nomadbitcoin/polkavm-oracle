@@ -1,0 +1,12 @@
+Testing smart contracts: using Passet Hub
+To connect to Passet Hub:
+
+Chainspec: chainspecs/paseo/parachain/passet-hub/chainspec.json at e5f6a0962457910dd8c1e5189713ac9484e997a9 · paritytech/chainspecs · GitHub
+ParaID: 1111
+RPC endpoint: https://testnet-passet-hub.polkadot.io
+ETH-RPC endpoint: https://testnet-passet-hub-eth-rpc.polkadot.io
+Blockscout: https://blockscout-passet-hub.parity-testnet.parity.io
+Bootnode: /dns/paseo-passet-hub-collator-node-0.parity-testnet.parity.io/tcp/30333/p2p/12D3KooWRYpkLtt6YyvkZKiG2st1oPAgivi3ZfeSRk1w53PjyzwP
+Repo: GitHub - paseo-network/passet-hub at 8c0a544c3a808f3240311417ddde99d57e381095
+Native token: PAS
+Chain ID: 420420422 *
